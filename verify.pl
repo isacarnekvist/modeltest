@@ -20,16 +20,20 @@ verify(Input) :-
 % To execute: consult(’your_file.pl’). verify(’input.txt’).
 
 % Literals
-%check(_, L, S, [], X)      :- ...
-%check(_, L, S, [], neg(X)) :- ...
+check(_, L, S, [], X)           :- member([S, SL], L), member(X, SL).
+check(_, L, S, [], neg(X))      :- \+ check(_, L, S, [], X).
 
 % And
-%check(T, L, S, [], and(F,G)) :- ...
+check(T, L, S, [], and(F,G))    :- check(T, L, S, [], F), check(T, L, S, [], G).
 
 % Or
+check(T, L, S, [], or(F,G))     :- check(T, L, S, [], F); check(T, L, S, [], G).
+
 % AX
 % EX
 % AG
 % EG
 % EF
+check(T, L, S, V, ef(X))        :- check(T, L, S, V, X).      % Gäller det i nuvarande noden?
+% check(T, L, S, V, ef(X))      :- check ( i nästa steg samma sak + [S|V] )
 % AF
