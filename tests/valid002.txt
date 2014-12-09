@@ -11,4 +11,3 @@
 s1.
 
 and(ef(or(r,neg(q))),eg(af(q))).
-
